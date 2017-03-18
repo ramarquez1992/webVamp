@@ -1,0 +1,47 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    title webVamp
+
+    // Place favicon.ico in the root directory
+    link(rel='apple-touch-icon', href='apple-touch-icon.png')
+
+    script(src='./lib/jquery.min.js')
+    script(src='./lib/bootstrap/bootstrap.min.js')
+    script(src='./js/visualization.js')
+    script(src='./js/main.js')
+
+    link(rel='stylesheet', href='./lib/bootstrap/bootstrap.min.css')
+    link(rel='stylesheet', href='./css/main.css')
+
+  body.container-fluid
+    div#graphSet.row.jumbotron
+      div.col-xs-6
+        div#timeDomain.panel.panel-primary
+          div.panel-heading
+            h4.panel-title
+              i.glyphicon.glyphicon-time
+              span &nbsp;&nbsp; Time Domain
+          div.panel-body
+            canvas#timeDomainCanvas.graph Your browser does not support the canvas element.
+
+      div.col-xs-6
+        div#freqDomain.panel.panel-info
+          div.panel-heading
+            h4.panel-title
+              i.glyphicon.glyphicon-equalizer
+              span &nbsp;&nbsp; Frequency Domain
+          div.panel-body
+            canvas#freqDomainCanvas.graph Your browser does not support the canvas element.
+
+      div#startStop
+        button#startButton.btn.btn-circle.btn-xl.btn-success(type='button', onclick='startButtonPressed()')
+          i.glyphicon.glyphicon-play
+        button#stopButton.btn.btn-circle.btn-xl.btn-danger(type='button', onclick='stopButtonPressed()')
+          i.glyphicon.glyphicon-pause
+
+    footer
+      a(href='https://github.com/richard92m/sigs')
+        img(src='./img/octocat.png', width='20px')
