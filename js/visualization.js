@@ -3,7 +3,7 @@ function draw( plotData, deltaY, elementName ) {
 
 	for ( let i = 0; i < plotData.length - 1; i++ ) {
 		if ( Math.abs( plotData[ i + 1 ] - plotData[ i ] ) >= deltaY ) {
-			newData.push( plotData[ i + 1 ] );
+			newData.push( plotData[ i + 1 ] / 256 );
 		}
 	}
 

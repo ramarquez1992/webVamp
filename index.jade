@@ -23,21 +23,21 @@ html
         div.panel-heading
           h4.panel-title
             i.glyphicon.glyphicon-equalizer
-            span &nbsp;&nbsp; Time Domain
+            span &nbsp;&nbsp; Frequency Domain
         div.panel-body
           canvas#freqDomainCanvas.graph Your browser does not support the canvas element.
 
     div#controls.row
       div.col-xs-1.col-xs-offset-4
         h4 Volume
-        input(type='range')
-      div.col-xs-1
+        input#volume(type='range')
+      //div.col-xs-1
         h4 Gain
         input(type='range')
-      div.col-xs-1
+      //div.col-xs-1
         h4 Tone
         input(type='range')
-      div.col-xs-1
+      //div.col-xs-1
         h4 Reverb
         input(type='range')
 
