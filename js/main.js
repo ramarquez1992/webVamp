@@ -56,43 +56,72 @@ function processMicrophoneBuffer(event) {
 }
 
 function startMicrophone(stream) {
-  gainNode = audioContext.createGain();
-  gainNode.connect(audioContext.destination);
-
-
-  // REVERB
-  var reverbNode = Reverb(audioContext)
-  reverbNode.connect(audioContext.destination)
-
-  reverbNode.time = 1 //seconds
-  reverbNode.wet.value = 0.8
-  reverbNode.dry.value = 1
-
-  reverbNode.filterType = 'lowpass'
-  reverbNode.cutoff.value = 4000 //Hz
-
-
-
   microphoneStream = audioContext.createMediaStreamSource(stream);
-  microphoneStream.connect(gainNode);
 
-  microphoneStream.connect(reverbNode);
+  // VOLUME
+  volumeNode = audioContext.createGain();
 
+  document.getElementById('volume').addEventListener('change', function () {
+    var currVolume = this.value;
+    volumeNode.gain.value = currVolume;
+  });
 
-  scriptProcessorNode = audioContext.createScriptProcessor(BUFF_SIZE, 1, 1);
-  scriptProcessorNode.onaudioprocess = processMicrophoneBuffer;
-
-  microphoneStream.connect(scriptProcessorNode);
-
-  // --- enable volume control for output speakers
+  // GAIN
+  gainNode = audioContext.createGain();
 
   document.getElementById('gain').addEventListener('change', function () {
     var currGain = this.value;
     gainNode.gain.value = currGain;
   });
 
-  // --- setup FFT
 
+  // REVERB
+  var reverbNode = Reverb(audioContext);
+  reverbNode.time = 0; // seconds
+  reverbNode.wet.value = 0.8;
+  reverbNode.dry.value = 1;
+  reverbNode.filterType = 'lowpass';
+  reverbNode.cutoff.value = 4000; // Hz
+
+  document.getElementById('reverb').addEventListener('change', function () {
+    var currReverb = this.value;
+    reverbNode.time = currReverb;
+  });
+
+
+  // TONE
+  var toneNode = audioContext.createBiquadFilter();
+  toneNode.type = "highshelf";
+  toneNode.frequency.value = 2000;  // Hz
+  toneNode.gain.value = 50;
+
+  document.getElementById('tone').addEventListener('change', function () {
+    var currTone = this.value;
+    toneNode.frequency.value = currTone;
+  });
+
+  microphoneStream.connect(volumeNode);
+  volumeNode.connect(gainNode);
+  volumeNode.connect(reverbNode);
+
+  reverbNode.connect(toneNode);
+  toneNode.connect(audioContext.destination);
+
+  gainNode.connect(reverbNode);
+  gainNode.connect(audioContext.destination);
+
+
+
+  // Complete mic stream setup
+  scriptProcessorNode = audioContext.createScriptProcessor(BUFF_SIZE, 1, 1);
+  scriptProcessorNode.onaudioprocess = processMicrophoneBuffer;
+
+  microphoneStream.connect(scriptProcessorNode);
+
+
+
+
+  // Setup FFT
   scriptProcessorFFTNode = audioContext.createScriptProcessor(2048, 1, 1);
   scriptProcessorFFTNode.connect(gainNode);
 
