@@ -9,6 +9,8 @@ html
     link(rel='apple-touch-icon', href='apple-touch-icon.png')
 
     script(src='./lib/jquery.min.js')
+    script(src='./lib/build-impulse.js')
+    script(src='./lib/soundbank-reverb.js')
     script(src='./lib/bootstrap/bootstrap.min.js')
     script(src='./js/visualization.js')
     script(src='./js/main.js')
@@ -29,17 +31,14 @@ html
 
     div#controls.row
       div.col-xs-1.col-xs-offset-4
-        h4 Volume
-        input#volume(type='range')
-      //div.col-xs-1
         h4 Gain
-        input(type='range')
+        input#gain(type='range')
       //div.col-xs-1
         h4 Tone
         input(type='range')
-      //div.col-xs-1
+      div.col-xs-1
         h4 Reverb
-        input(type='range')
+        input#reverb(type='range')
 
       //div#startStop
         button#startButton.btn.btn-circle.btn-xl.btn-success(type='button', onclick='startButtonPressed()')

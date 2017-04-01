@@ -59,8 +59,25 @@ function startMicrophone(stream) {
   gainNode = audioContext.createGain();
   gainNode.connect(audioContext.destination);
 
+
+  // REVERB
+  var reverbNode = Reverb(audioContext)
+  reverbNode.connect(audioContext.destination)
+
+  reverbNode.time = 1 //seconds
+  reverbNode.wet.value = 0.8
+  reverbNode.dry.value = 1
+
+  reverbNode.filterType = 'lowpass'
+  reverbNode.cutoff.value = 4000 //Hz
+
+
+
   microphoneStream = audioContext.createMediaStreamSource(stream);
   microphoneStream.connect(gainNode);
+
+  microphoneStream.connect(reverbNode);
+
 
   scriptProcessorNode = audioContext.createScriptProcessor(BUFF_SIZE, 1, 1);
   scriptProcessorNode.onaudioprocess = processMicrophoneBuffer;
@@ -69,12 +86,9 @@ function startMicrophone(stream) {
 
   // --- enable volume control for output speakers
 
-  document.getElementById('volume').addEventListener('change', function () {
-
-    var currVolume = this.value;
-    gainNode.gain.value = currVolume;
-
-    console.log("currVolume ", currVolume);
+  document.getElementById('gain').addEventListener('change', function () {
+    var currGain = this.value;
+    gainNode.gain.value = currGain;
   });
 
   // --- setup FFT
