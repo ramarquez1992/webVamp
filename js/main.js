@@ -5,11 +5,18 @@ var volumeNode,
   reverbNode;
 
 $(document).ready(function () {
+  //initGUI();
   initAudioInput();
 });
 
 // Initialize after audio so dials can connect to nodes
 function initGUI() {
+  $("#helpDialog").dialog({
+    modal: true,
+    autoOpen: false,
+    width: '60%',
+  });
+
   $('#volumeDial').knob({
     'change': function (v) { setVolume(v.toFixed(2)); },
     'release': function (v) { setVolume(v.toFixed(2)); }

@@ -9,24 +9,41 @@ html
     link(rel='apple-touch-icon', href='apple-touch-icon.png')
 
     script(src='./lib/jquery.min.js')
+    script(src='./lib/bootstrap/bootstrap.min.js')
+    script(src='./lib/jquery-ui/jquery-ui.min.js')
     script(src='./lib/excanvas.js')
     script(src='./lib/jquery.knob.min.js')
     script(src='./lib/build-impulse.js')
     script(src='./lib/soundbank-reverb.js')
-    script(src='./lib/bootstrap/bootstrap.min.js')
     script(src='./js/visualization.js')
     script(src='./js/main.js')
 
     link(rel='stylesheet', href='./lib/bootstrap/bootstrap.min.css')
+    link(rel='stylesheet', href='./lib/jquery-ui/jquery-ui.min.css')
+    link(rel='stylesheet', href='./lib/jquery-ui/jquery-ui.structure.min.css')
+    link(rel='stylesheet', href='./lib/jquery-ui/jquery-ui.theme.min.css')
     link(rel='stylesheet', href='./css/main.css')
 
   body.container-fluid
+    div#helpDialog(title='Help')
+      h4 Getting lots of feedback (a growing high-pitched noise)?
+      p Make sure you are connected to the USB audio and not the built-in mic.
+        | In Chrome click the camera icon on the right side of the address bar to select your input device,
+        | then refresh this page. You can also select USB audio as your input device from your system's audio settings.
+
+      h4 Not getting any sound at all?
+      ol
+        li Ensure speakers are not muted
+        li Ensure the volume dial below is not muted
+        li Ensure all cables are securely connected
+        li Refresh this page
+
     div#graphSet.jumbotron.container-fluid
       div#timeDomain.panel.panel-info
         div.panel-heading
           h4.panel-title
             i.glyphicon.glyphicon-equalizer
-            span &nbsp;&nbsp; Time domain
+            span &nbsp;&nbsp; Time Domain
         div.panel-body
           canvas#timeDomainCanvas.graph Your browser does not support the canvas element.
 
@@ -35,7 +52,6 @@ html
           h4 Volume
           input#volumeDial.dial(type='text', data-min='0', data-max='1', data-step='0.01',
             data-width='60', data-height='60', data-thickness='1', data-displayInput='false', data-cursor='10', data-fgColor='#333')
-          //h4 Volume
         div.col-xs-1
           h4 Gain
           input#gainDial.dial(type='text', data-min='0', data-max='100', data-step='1',
@@ -50,5 +66,7 @@ html
             data-width='60', data-height='60', data-thickness='1', data-displayInput='false', data-cursor='10', data-fgColor='#333')
 
     footer
-      a(href='https://github.com/richard92m/webVamp')
+      a(onclick='$("#helpDialog").dialog("open");') Help &nbsp;&nbsp;
+        i.glyphicon.glyphicon-question-sign
+      //a(href='https://github.com/richard92m/webVamp')
         img(src='./img/octocat.png', width='20px')
