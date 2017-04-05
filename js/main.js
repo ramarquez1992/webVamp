@@ -5,32 +5,51 @@ var volumeNode,
   reverbNode;
 
 $(document).ready(function () {
-  initGUI();
   initAudioInput();
 });
 
+// Initialize after audio so dials can connect to nodes
 function initGUI() {
-  $('.dial').knob({
-    'release': function (v) { console.log('v'); }
+  $('#volumeDial').knob({
+    'change': function (v) { setVolume(v.toFixed(2)); },
+    'release': function (v) { setVolume(v.toFixed(2)); }
   });
+  $('#volumeDial').val(1).trigger('change');
 
-
-
-  document.getElementById('volume').addEventListener('change', function () {
-    volumeNode.gain.value = this.value;
+  $('#gainDial').knob({
+    'change': function (v) { setGain(v.toFixed(2)); },
+    'release': function (v) { setGain(v.toFixed(2)); }
   });
+  $('#gainDial').val(0).trigger('change');
 
-  document.getElementById('gain').addEventListener('change', function () {
-    gainNode.gain.value = this.value;
+  $('#toneDial').knob({
+    'change': function (v) { setTone(v.toFixed(2)); },
+    'release': function (v) { setTone(v.toFixed(2)); }
   });
+  $('#toneDial').val(2000).trigger('change');
 
-  document.getElementById('tone').addEventListener('change', function () {
-    toneNode.frequency.value = this.value;
+  $('#reverbDial').knob({
+    'change': function (v) { setReverb(v.toFixed(2)); },
+    'release': function (v) { setReverb(v.toFixed(2)); }
   });
+  $('#reverbDial').val(0).trigger('change');
 
-  document.getElementById('reverb').addEventListener('change', function () {
-    reverbNode.time = this.value;
-  });
+}
+
+function setVolume(v) {
+  volumeNode.gain.value = v;
+}
+
+function setGain(v) {
+  gainNode.gain.value = v;
+}
+
+function setTone(v) {
+  toneNode.frequency.value = v;
+}
+
+function setReverb(v) {
+  reverbNode.time = v;
 }
 
 function initAudioInput() {
@@ -44,6 +63,7 @@ function initAudioInput() {
     navigator.getUserMedia( { audio: true },
       function (stream) {
         startMicrophone(stream);
+        initGUI();
       },
       function (e) {
         alert('Error capturing audio.');

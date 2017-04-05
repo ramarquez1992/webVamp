@@ -33,23 +33,20 @@ html
     div#controls.row
       div.col-xs-1.col-xs-offset-4
         h4 Volume
-        input#volume(type='range', max='1.0', value='1.0', step='0.001')
-        input#volumeDial.dial(type='text', data-min='0.0', data-max='1.0', data-step='0.01')
+        input#volumeDial.dial(type='text', data-min='0', data-max='1', data-step='0.01',
+          data-width='60', data-thickness='2', data-displayInput='false', data-cursor='10', data-fgColor='#333')
       div.col-xs-1
         h4 Gain
-        input#gain(type='range', min='0', max='100', value='0')
+        input#gainDial.dial(type='text', data-min='0', data-max='100', data-step='1',
+          data-width='60', data-thickness='2', data-displayInput='false', data-cursor='10', data-fgColor='#333')
       div.col-xs-1
         h4 Tone
-        input#tone(type='range', max='2000', value='2000')
+        input#toneDial.dial(type='text', data-min='0', data-max='2000', data-step='20',
+          data-width='60', data-thickness='2', data-displayInput='false', data-cursor='10', data-fgColor='#333')
       div.col-xs-1
         h4 Reverb
-        input#reverb(type='range', max='3', value='0', step='0.1')
-
-      //div#startStop
-        button#startButton.btn.btn-circle.btn-xl.btn-success(type='button', onclick='startButtonPressed()')
-          i.glyphicon.glyphicon-play
-        button#stopButton.btn.btn-circle.btn-xl.btn-danger(type='button', onclick='stopButtonPressed()')
-          i.glyphicon.glyphicon-pause
+        input#reverbDial.dial(type='text', data-min='0', data-max='3', data-step='0.03',
+          data-width='60', data-thickness='2', data-displayInput='false', data-cursor='10', data-fgColor='#333')
 
     footer
       a(href='https://github.com/richard92m/webVamp')
