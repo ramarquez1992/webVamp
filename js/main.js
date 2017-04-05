@@ -10,6 +10,12 @@ $(document).ready(function () {
 });
 
 function initGUI() {
+  $('.dial').knob({
+    'release': function (v) { console.log('v'); }
+  });
+
+
+
   document.getElementById('volume').addEventListener('change', function () {
     volumeNode.gain.value = this.value;
   });
@@ -35,7 +41,7 @@ function initAudioInput() {
 
   // Start stream if possible, else display error
   if (navigator.getUserMedia) {
-    navigator.getUserMedia({audio: true},
+    navigator.getUserMedia( { audio: true },
       function (stream) {
         startMicrophone(stream);
       },
@@ -84,32 +90,24 @@ function startMicrophone(stream) {
   gainNode.connect(audioContext.destination);
 
 
-  // FFT
-  var scriptProcessorFFTNode = audioContext.createScriptProcessor(2048, 1, 1);
-  scriptProcessorFFTNode.connect(volumeNode);
+  // Waveform spectrogram
+  var scriptProcessorNode = audioContext.createScriptProcessor(2048, 1, 1);
+  scriptProcessorNode.connect(volumeNode);
+  microphoneStream.connect(scriptProcessorNode);
 
-  var analyserNode = audioContext.createAnalyser();
-  analyserNode.smoothingTimeConstant = 0;
-  analyserNode.fftSize = 2048;
+  scriptProcessorNode.onaudioprocess = function (audioProcessingEvent) {
+    var frameBuffer = audioProcessingEvent.inputBuffer.getChannelData(0);
 
-  microphoneStream.connect(analyserNode);
-  analyserNode.connect(scriptProcessorFFTNode);
-
-  scriptProcessorFFTNode.onaudioprocess = function () {
-    // Get average from channel
-    var array = new Uint8Array(analyserNode.frequencyBinCount);
-    analyserNode.getByteFrequencyData(array);
-
-    // Draw spectrogram
+    // Draw waveform
     if (microphoneStream.playbackState == microphoneStream.PLAYING_STATE) {
-      draw(array, -1, 'freqDomainCanvas');
+      draw(frameBuffer, 0, 'timeDomainCanvas');
     }
   };
 }
 
 function getAudioCtx() {
-  if ( window.AudioContext ) return new window.AudioContext();
-  else if ( window.webkitAudioContext ) return new window.webkitAudioContext();
-  else if ( window.audioContext ) return new window.audioContext();
-  else alert( 'Browser audio requirements not met' );
+  if (window.AudioContext) return new window.AudioContext();
+  else if (window.webkitAudioContext) return new window.webkitAudioContext();
+  else if (window.audioContext) return new window.audioContext();
+  else alert('Browser audio requirements not met');
 }
