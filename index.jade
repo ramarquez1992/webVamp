@@ -21,32 +21,33 @@ html
     link(rel='stylesheet', href='./css/main.css')
 
   body.container-fluid
-    div#graphSet.row.jumbotron
+    div#graphSet.jumbotron.container-fluid
       div#timeDomain.panel.panel-info
         div.panel-heading
           h4.panel-title
             i.glyphicon.glyphicon-equalizer
-            span &nbsp;&nbsp; webVamp
+            span &nbsp;&nbsp; Time domain
         div.panel-body
           canvas#timeDomainCanvas.graph Your browser does not support the canvas element.
 
-    div#controls.row
-      div.col-xs-1.col-xs-offset-4
-        h4 Volume
-        input#volumeDial.dial(type='text', data-min='0', data-max='1', data-step='0.01',
-          data-width='60', data-thickness='2', data-displayInput='false', data-cursor='10', data-fgColor='#333')
-      div.col-xs-1
-        h4 Gain
-        input#gainDial.dial(type='text', data-min='0', data-max='100', data-step='1',
-          data-width='60', data-thickness='2', data-displayInput='false', data-cursor='10', data-fgColor='#333')
-      div.col-xs-1
-        h4 Tone
-        input#toneDial.dial(type='text', data-min='0', data-max='2000', data-step='20',
-          data-width='60', data-thickness='2', data-displayInput='false', data-cursor='10', data-fgColor='#333')
-      div.col-xs-1
-        h4 Reverb
-        input#reverbDial.dial(type='text', data-min='0', data-max='3', data-step='0.03',
-          data-width='60', data-thickness='2', data-displayInput='false', data-cursor='10', data-fgColor='#333')
+      div#controls.row
+        div.col-xs-1.col-xs-offset-4
+          h4 Volume
+          input#volumeDial.dial(type='text', data-min='0', data-max='1', data-step='0.01',
+            data-width='60', data-height='60', data-thickness='1', data-displayInput='false', data-cursor='10', data-fgColor='#333')
+          //h4 Volume
+        div.col-xs-1
+          h4 Gain
+          input#gainDial.dial(type='text', data-min='0', data-max='100', data-step='1',
+            data-width='60', data-height='60', data-thickness='1', data-displayInput='false', data-cursor='10', data-fgColor='#333')
+        div.col-xs-1
+          h4 Tone
+          input#toneDial.dial(type='text', data-min='0', data-max='2000', data-step='20',
+            data-width='60', data-height='60', data-thickness='1', data-displayInput='false', data-cursor='10', data-fgColor='#333')
+        div.col-xs-1
+          h4 Reverb
+          input#reverbDial.dial(type='text', data-min='0', data-max='3', data-step='0.03',
+            data-width='60', data-height='60', data-thickness='1', data-displayInput='false', data-cursor='10', data-fgColor='#333')
 
     footer
       a(href='https://github.com/richard92m/webVamp')

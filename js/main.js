@@ -20,19 +20,19 @@ function initGUI() {
     'change': function (v) { setGain(v.toFixed(2)); },
     'release': function (v) { setGain(v.toFixed(2)); }
   });
-  $('#gainDial').val(0).trigger('change');
+  $('#gainDial').val(5).trigger('change');
 
   $('#toneDial').knob({
     'change': function (v) { setTone(v.toFixed(2)); },
     'release': function (v) { setTone(v.toFixed(2)); }
   });
-  $('#toneDial').val(2000).trigger('change');
+  $('#toneDial').val(1800).trigger('change');
 
   $('#reverbDial').knob({
     'change': function (v) { setReverb(v.toFixed(2)); },
     'release': function (v) { setReverb(v.toFixed(2)); }
   });
-  $('#reverbDial').val(0).trigger('change');
+  $('#reverbDial').val(1).trigger('change');
 
 }
 

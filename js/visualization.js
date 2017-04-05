@@ -9,6 +9,8 @@ function draw( plotData, deltaY, elementName ) {
 
 	const canvas = document.getElementById( elementName );
 	let ctx = canvas.getContext( '2d' );
+  ctx.lineWidth = 0.5;
+  ctx.strokeStyle="#000";
 	const height = canvas.height;
 	const width = canvas.width;
 
