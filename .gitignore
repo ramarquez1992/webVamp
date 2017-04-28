@@ -3,4 +3,4 @@ node_modules
 *.css
 *.map
 *.html
-.idea/
+.idea/workspace.xml
