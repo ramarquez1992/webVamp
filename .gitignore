@@ -1,6 +1,6 @@
 archive
 node_modules
-*.css
+css/*.css
 *.map
 *.html
-.idea/workspace.xml
+.idea/*.xml
